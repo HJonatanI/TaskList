@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mi lista de tareas</title>
+</head>
+<body>
+    <h1>Mi Lista de Tareas</h1>
+
+    <section>
+        <input type="text" id="titleInput" placeholder="Ingrese Titulo" onkeypress="checkEnterForTitle(event)" style="display: inline;"> 
+        <button onclick="setTitle()">Establecer Titulo</button>
+    </section>
+    <section>
+        <input type="text" id="taskInput" placeholder="Ingrese Tarea" onkeypress="checkEnter(event)" style="display: inline;"> 
+        <button onclick="inputClear()">X</button>
+        <button onclick="taskAdd()">Añadir</button>
+        <button onclick="listClear()">Borrar Lista</button>
+    </section>    
+
+    <h2 id="listTitle"></h2>
+    <ul id="taskList">
+
+    </ul>
+    
+    <script>
+        var taskInput = document.getElementById("taskInput");
+        var taskList = document.getElementById("taskList");
+        var titleInput = document.getElementById("titleInput");
+        var listTitle = document.getElementById("listTitle");
+
+        function taskAdd(){
+            var task = taskInput.value;
+            if(task.trim() != ""){
+                var li = document.createElement("li");
+
+                li.textContent = task;
+
+                taskList.appendChild(li);
+                taskInput.value = "";
+            }
+        }
+
+        function listClear(){
+            taskList.innerHTML = "";
+        }
+        
+        function inputClear(){
+            taskInput.value = "";
+            taskInput.focus();
+        }
+
+        function checkEnter(event) {
+            // keyCode 13 es la tecla ENTER.
+            if (event.keyCode === 13) {
+                // Previene la accion por defecto de la tecla.
+                event.preventDefault();
+                taskAdd();
+            }
+        }
+
+        function setTitle(){
+            var title = titleInput.value;
+            if(title.trim() != ""){
+                listTitle.textContent = title;
+                taskInput.value = "";
+            }
+        }
+
+        function checkEnterForTitle(event) {
+            // keyCode 13 es la tecla ENTER.
+            if (event.keyCode === 13) {
+                // Previene la accion por defecto de la tecla.
+                event.preventDefault();
+                setTitle();
+            }
+        }
+    </script>
+</body>
+</html>
